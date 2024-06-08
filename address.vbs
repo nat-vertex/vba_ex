@@ -18,10 +18,10 @@ Set patReg = New RegExp
 patReg.IgnoreCase = False
 patReg.Global = True
 
-first_begin = "(^)[йцукенгшщзхъфывапролджэячсмитьбю.-]{1,100}\s[\S]{1,100}"
-second_begin = "(^)[йцукенгшщзхъфывапролджэячсмитьбю.-]{1,100}\s"
-first_end = "[\S]{1,100}\s[йцукенгшщзхъфывапролджэячсмитьбю.-]{1,100}$"
-second_end = "\s[йцукенгшщзхъфывапролджэячсмитьбю.-]{1,100}$"
+first_begin = "(^)[йцукенгшщзхъфывапролджэячсмитьбюё.-]{1,100}\s[\S]{1,100}"
+second_begin = "(^)[йцукенгшщзхъфывапролджэячсмитьбюё.-]{1,100}\s"
+first_end = "[\S]{1,100}\s[йцукенгшщзхъфывапролджэячсмитьбюё.-]{1,100}$"
+second_end = "\s[йцукенгшщзхъфывапролджэячсмитьбюё.-]{1,100}$"
 
 
 counter = 2   
@@ -33,9 +33,7 @@ Do While oSh.Cells(counter, column_d) <> ""        '
         patReg.Pattern = first_begin
         Set newPatterns = patReg.Execute(subs)
         If newPatterns.Count > 0 Then
-        
             For Each newPattern In newPatterns
-            
                 patReg.Pattern = second_begin
                 Set resPatterns = patReg.Execute(newPattern)
                 
@@ -44,22 +42,18 @@ Do While oSh.Cells(counter, column_d) <> ""        '
                         arrPatterns.Add resPattern.Value, ""
                     End If
                 Next
-            
             Next
         Else
             patReg.Pattern = first_end
             Set newPatterns = patReg.Execute(subs)
             For Each newPattern In newPatterns
-            
                 patReg.Pattern = second_end
                 Set resPatterns = patReg.Execute(newPattern)
-                
                 For Each resPattern In resPatterns
                     If Not arrPatterns.Exists(resPattern.Value) Then
                         arrPatterns.Add resPattern.Value, ""
                     End If
                 Next
-            
             Next
         End If
     Next
@@ -103,9 +97,8 @@ End Sub
 
 
 Function CleanAddress(ourAddress, arrPatterns) As String
+    
 resultAddress = ""
-
-
 fullOurAddress = Split(ourAddress, ", ")
 
 For Each partAddress In arrPatterns
@@ -119,12 +112,11 @@ For Each partAddress In arrPatterns
     partAddressWithStar = Replace(partAddress, " ", addSymbol)
     st = partAddressWithStar
     partAddressWithStars = "*" + partAddressWithStar + "*"
-    flag = False
-    If ourAddress Like partAddressWithStars Then
-    
-                                        
-        For Each subOurAddress In fullOurAddress
         
+    flag = False
+        
+    If ourAddress Like partAddressWithStars Then  
+        For Each subOurAddress In fullOurAddress
             If (subOurAddress Like st) Or (Left(st, 2) = "* " And subOurAddress Like (st + " *")) Or (Right(st, 2) = " *" And subOurAddress Like ("* " + st)) Then
                 If resultAddress <> "" Then
                     resultAddress = resultAddress + ", " + subOurAddress
@@ -144,5 +136,7 @@ For Each partAddress In arrPatterns
         End If
     End If
 Next
+    
 CleanAddress = resultAddress
+    
 End Function
