@@ -1,4 +1,4 @@
-Sub Link_plan_sheets()
+Sub LinkPlanSheets()
 
 Dim objExcel As Object
 Dim objSheet As Object
