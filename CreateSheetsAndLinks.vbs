@@ -1,5 +1,7 @@
 Sub CreateSheetsLinkPlanSheets()
-
+'if there is a plan with steps, create worksheets with names corresponding to the steps in the plan. 
+'if both a plan and worksheets are available, establish cross-references between them (сreate a table of contents for the test plan)
+  
 Dim objExcel As Object
 Dim objSheet As Object
 Dim newSheet As Object
@@ -73,14 +75,19 @@ Loop
 planSheet = "plan"
 For i = 1 To Cells(Rows.Count, 1).End(xlUp).Row    
     nameSheet = objSheet.Cells(i, 1)
-    If DSheets.Exists(nameSheet) Then        
+    If DSheets.Exists(nameSheet) Then 
+        'if sheet with title of step exists 
+  
         destinationAddress = CStr("'" + nameSheet + "'!A1")
         Worksheets(planSheet).Hyperlinks.Add Anchor:=Worksheets(planSheet).Cells(i, 1), Address:="", SubAddress:= _
         destinationAddress, TextToDisplay:=nameSheet
-    
+        'create link for the step (from sheet "plan") with number @nameSheet to the sheet with name @nameSheet which relates to the step
+        
         returnAddress = CStr("'" + planSheet + "'" + "!A" + CStr(i))
         Worksheets(nameSheet).Hyperlinks.Add Anchor:=Worksheets(nameSheet).Cells(1, 1), Address:="", SubAddress:= _
         returnAddress, TextToDisplay:=planSheet
+        'create link for the sheet of step with name @nameSheet to the plan with row where there is step with number @nameSheet 
+  
     End If
 Next
 
