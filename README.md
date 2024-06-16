@@ -3,7 +3,7 @@
 
 Procedure LinkPlanSheets 
 - for test plan in excel 
-- allows to create links from main test plan sheet to steps sheets and vice versa (from steps sheets to a certain cell of plan)
+- creates a table of contents(you can navigate from the plan sheet to the sheet describing certain plan step and back)
 
 Procedure Address 
 - an excample of how to use regexp 
