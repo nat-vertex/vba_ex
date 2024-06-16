@@ -6,4 +6,4 @@ Procedure Link_Plan_Sheets
 - allows to create links from main test plan sheet to steps sheets and vice versa (from steps sheets to a certain cell of plan)
 
 Procedure Address 
-An excample of how to use regexp 
+- an excample of how to use regexp 
