@@ -26,4 +26,7 @@ For i = 1 To 1000
     End If
 Next
 
+Beep
+Shell "msg /TIME:" & 8 & " " & Environ("Username") & " " & "Выполнено" 
+    
 End Sub
