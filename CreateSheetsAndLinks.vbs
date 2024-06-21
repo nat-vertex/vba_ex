@@ -73,6 +73,11 @@ Loop
 
 
 planSheet = "plan"
+
+For Each Sheet In ThisWorkbook.Worksheets    
+  DSheets.Add Sheet.Name, ""
+Next
+  
 For i = 1 To Cells(Rows.Count, 1).End(xlUp).Row    
     nameSheet = objSheet.Cells(i, 1)
     If DSheets.Exists(nameSheet) Then 
